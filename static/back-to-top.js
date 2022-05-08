@@ -1,7 +1,3 @@
-// HTML
-//<button id="back-to-top"><i class="fas fa-chevron-circle-up" id="topButton"></i></button>
-//<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
 $(document).ready(function () {
   var x = document.getElementById('topButton');
   var btn = $("#back-to-top");
