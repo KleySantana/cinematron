@@ -5,41 +5,33 @@
 {% endblock %}
 
 {% block main %}
-  <section>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+  <section class="results tops">
+    <fieldset class="cards-results cards-container">
+    <legend class="jumbotron">Search Results</legend>
       {% for title in results %}
-        <div class="col-md-3" style="margin-top: 15px">
-          <div class="card" style="width: 15rem;">
+        <div class="title result">
+          <!-- Controls if star is empty or full -->
+          {% if title.id not in check %}
+            <form id="{{ title.id }}" action="/favorite" method="post">
+              <input name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
+            </form>
+          {% else %}
+            <form id="{{ title.id }}" action="/remove" method="post">
+              <input name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
+            </form>
+          {% endif %}
+          <form action="/info" class="star" method="post">
+            <input name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
+            <button class="btn-card" type="submit"><img src="{{ title.image }}" loading="lazy" alt="Poster for {{ title.title }}"></button>
             {% if title.id not in check %}
-            <form action="/favorite" method="post">
-              <input class="form-control" name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
-                <button class="movie-card__icon" type="submit"><i class="material-icons">&#xf06f</i></button>
-              </input>
-            </form>
+            <button class="fav-button" form="{{ title.id }}" type="submit"><i class="material-icons">&#xf06f</i></button>
             {% else %}
-            <form action="/remove" method="post">
-              <input class="form-control" name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
-                <button class="movie-card__icon" type="submit" ><i class="material-icons" style="color: gold;">&#xe838</i></button>
-              </input>
-            </form>
+            <button class="fav-button" form="{{ title.id }}" type="submit"><i class="material-icons" style="color: gold;">&#xe838</i></button>
             {% endif %}
-            <img src="{{ title.image }}" class="card-img-top" alt="Movie Poster">
-              <div class="card-body">
-                <h5 class="card-title">{{ title.title }}</h5>
-                <p class="card-text">Release year: {{ title.description }}</p>
-              </div>
-              <ul class="list-group list-group-flush">
-                <li class="list-group-item">
-                  <form action="/info" method="post">
-                    <input class="form-control" name="imdb_id" type="text" style="display: none" value="{{ title.id }}">
-                    <button type="submit" class="btn btn-primary" style="width: 100%">More</button>
-                  </form>
-                </li>
-              </ul>
-          </div>
+          </form>
         </div>
       {% endfor %}
-    </div>
+    </fieldset>
   </section>
 
 {% endblock %}

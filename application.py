@@ -1,11 +1,9 @@
 import os
-import requests
 
 from cs50 import SQL
-from flask import Flask, flash, redirect, render_template, request, session
+from flask import Flask, redirect, render_template, request, Request, session
 from flask_session import Session
 from tempfile import mkdtemp
-from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # helpers.py from CS50's staff
@@ -41,16 +39,20 @@ if not os.environ.get("API_KEY"):
 @app.route("/")
 def index():
 
+    # return render_template("index.html")
+
     movies = top_ten_movies()
     shows = top_ten_series()
+
 
     if session.get("user_id") is not None:
         favorites = db.execute("SELECT imdb_id FROM favorites WHERE user_id = ?", session["user_id"])
         check = []
+
         for i in range(len(favorites)):
             check.append(favorites[i]["imdb_id"])
-
         return render_template("index.html", movies=movies, shows=shows, check=check)
+
     else:
         return render_template("index.html", movies=movies, shows=shows)
 
@@ -69,6 +71,16 @@ def favorite():
         return redirect("/")
 
 
+@app.route("/remove", methods=["GET", "POST"])
+@login_required
+def remove():
+    """Remove from favorites"""
+
+    if request.method == "POST":
+        imdb_id = request.form.get("imdb_id")
+        db.execute("DELETE FROM favorites WHERE imdb_id = ? AND user_id = ?", imdb_id, session["user_id"])
+
+        return redirect("/")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -136,18 +148,19 @@ def info():
     # Get
     if request.method == "POST":
         imdb_id = request.form.get("imdb_id")
-        ms = get_info(imdb_id)
-        similars = ms["similars"]
+        ms1 = get_info(imdb_id)
+        similars = ms1[0]["similars"]
+        ms = ms1[0]
+        image2 = ms1[1]
 
         if session.get("user_id") is not None:
             favorites = db.execute("SELECT imdb_id FROM favorites WHERE user_id = ?", session["user_id"])
             check = []
             for i in range(len(favorites)):
                 check.append(favorites[i]["imdb_id"])
-            return render_template("ms_info.html", ms=ms, similars=similars, check=check)
+            return render_template("ms_info.html", ms=ms, similars=similars, check=check, image2=image2)
 
-
-        return render_template("ms_info.html", ms=ms, similars=similars)
+        return render_template("ms_info.html", ms=ms, similars=similars, image2=image2)
 
 @app.route("/mylist")
 @login_required
@@ -164,19 +177,11 @@ def mylist():
 
         my_list = []
         for favorite in favorites:
-            my_list.append(get_info(favorite["imdb_id"]))
+            get_list = get_info(favorite["imdb_id"])
+            my_list.append(get_list[0])
 
         return render_template("mylist.html", my_list=my_list, check=check)
 
-
-@app.route("/remove", methods=["GET", "POST"])
-@login_required
-def remove():
-    """Remove from favorites"""
-    if request.method == "POST":
-        imdb_id = request.form.get("imdb_id")
-        db.execute("DELETE FROM favorites WHERE imdb_id = ? AND user_id = ?", imdb_id, session["user_id"])
-        return redirect("/")
 
 
 @app.route("/profile")
@@ -238,4 +243,4 @@ def delete():
         else:
             return redirect("/")
     else:
-        return render_template("delete.html")
+        return render_template("delete.html", f2="footer")
