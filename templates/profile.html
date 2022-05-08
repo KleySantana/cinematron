@@ -7,99 +7,47 @@
 {% block main %}
 <!-- https://freefrontend.com/bootstrap-profiles/ -->
     {% if not gravatar %}
-    <section style="width: 100%" class="section about-section gray-bg" id="about">
-    <div class="counter" style="text-align: left">
-        <div class="row">
-            <div class="col-6 col-lg-3">
-                <div class="count-data text-center">
-                    <h6><a href="/delete"><button class="btn btn-outline-erase my-2 my-sm-0">Erase My Account</button></a></h6>
-                    <p class="m-0px font-w-600"></p>
+    <section class="non-gravatar row">
+        <div class="card profile-page">
+            <div class="body">
+                <h1 style="margin-bottom: 1rem;">Profile</h1>
+                <div>
+                    <a href="/mylist"><button class="profile-button btn btn-primary">Favorites</button></a>
+                    <a href="/delete"><button class="btn btn-outline-erase">Delete My Account</button></a>
                 </div>
-            </div>
-            <div class="col-6 col-lg-3" colspan="10">
-                <div class="count-data text-center" style="width: 500px">
-                    <h6 class="count h2" style="color: white">Register at <a href="https://gravatar.com/" target="_blank">Gravatar</a> <p>for a full profile page</p></h6>
-                </div>
-            </div>
-            <div class="col-6 col-lg-3" style="margin-left: 200px">
-                <div class="count-data text-center">
-                    <a href="/mylist" style="text-decoration: none">
-                        <h6 class="count h2" style="color: white">{{ number }}</h6>
-                        <p class="m-0px font-w-600 theme-color">Favorites</p>
-                    </a>
-                </div>
+                <br>
+                <p>Register at <a href="https://gravatar.com/" target="_blank">Gravatar</a> for a full profile page.</p>
             </div>
         </div>
-    </div>
     </section>
 
     {% else %}
+    <section class="container profile-page">
+    <div class="row">
+        <div class="col-lg-7 col-md-12">
+            <div class="card profile-header">
+                <div class="body">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-12">
+                            <div class="profile-image float-md-right"> <img src="{{ gravatar.thumbnailUrl }}?s=315" loading="lazy" alt=""> </div>
+                            <p class="social-icon m-t-5 m-b-0">
+                                <a title="Gravatar" target="_blank" href="{{ gravatar.profileUrl }}"><img class="social" src="/static/gravatar-logo.png" loading="lazy" alt="See profile in Gravatar.com">Gravatar Profile</a>
+                            </p>
+                        </div>
+                        <div class="info col-lg-8 col-md-8 col-12">
+                            <h3 class="m-t-0 m-b-0">{{ gravatar.displayName }}</h3>
+                            <p>{{ gravatar.currentLocation }}</p>
+                            <p>{{ gravatar.aboutMe }}</p>
 
-    <section style="width: 100%" class="section about-section gray-bg" id="about">
-        <div class="container" style="text-align: left">
-            <div class="row align-items-center flex-row-reverse">
-                <div class="col-lg-6">
-                    <div class="about-text go-to">
-                        <h3 class="theme-color">{{ gravatar.displayName }}</h3>
-                        <h6 class="theme-color lead"></h6>
-                        <p>{{ gravatar.aboutMe }}</p>
-                        <div class="row about-list">
-                            <div class="col-md-6">
-                                <div class="media">
-                                    <label>Residence</label>
-                                    <p>{{ gravatar.currentLocation }}</p>
-                                </div>
-                                <div class="media">
-                                    <label>E-mails</label>
-                                    {% for email in gravatar.emails %}
-                                      <p>{{ email.value }}</p>
-                                    {% endfor %}
-                                </div>
-                                <div class="media">
-                                    <a href="{{ gravatar.profileUrl }}" target="_blank"><p>Gravatar Profile</p></a>
-                                </div>
+                            <div class="buttons">
+                                <a href="/mylist"><button class="profile-button btn btn-primary">Favorites</button></a>
+                                <a href="/delete"><button class="btn btn-outline-erase">Delete My Account</button></a>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6" style="text-align: center">
-                    <div class="about-avatar">
-                        <img src="{{ gravatar.thumbnailUrl }}?s=315" title="" alt="">
-                    </div>
-                </div>
-            </div>
-            <div class="counter">
-                <div class="row">
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6><a href="/delete"><button class="btn btn-outline-erase my-2 my-sm-0">Erase My Account</button></a></h6>
-                            <p class="m-0px font-w-600"></p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="150" data-speed="150"></h6>
-                            <p class="m-0px font-w-600"></p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <h6 class="count h2" data-to="850" data-speed="850"></h6>
-                            <p class="m-0px font-w-600"></p>
-                        </div>
-                    </div>
-                    <div class="col-6 col-lg-3">
-                        <div class="count-data text-center">
-                            <a href="/mylist" style="text-decoration: none">
-                                <h6 class="count h2" style="color: white">{{ number }}</h6>
-                                <p class="m-0px font-w-600 theme-color">Favorites</p>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     {% endif %}
 {% endblock %}

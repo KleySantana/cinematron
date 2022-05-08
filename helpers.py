@@ -1,9 +1,8 @@
 import os
 import requests
-import urllib.parse
 
 from libgravatar import Gravatar
-from flask import redirect, render_template, request, session
+from flask import redirect, render_template, session
 from functools import wraps
 
 
@@ -54,7 +53,6 @@ def top_ten_movies():
             if len(rate) == 0:
                 x[i]["imDbRating"] = "Unrated"
 
-        #print(f"{x}")
         return x
 
 
@@ -80,7 +78,7 @@ def top_ten_series():
             rate = x[i]["imDbRating"]
             if len(rate) == 0:
                 x[i]["imDbRating"] = "Unrated"
-            
+
         return x
 
     except requests.RequestException:
@@ -157,12 +155,13 @@ def get_info(result_id):
 
         result2 = response2.json()
         images = result2["backdrops"]
-        image = images[0]["link"]
-
         result["trailer"] = trailer
-        result["image"] = image
+        if len(images) == 0:
+            image2 = result["image"]
+            return result, image2
+        else:
+            image2 = images[0]["link"]
+            return result, image2
 
-
-        return result
     except (KeyError, TypeError, ValueError):
         return None
