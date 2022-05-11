@@ -2,7 +2,7 @@
 
 ## About
 
-#### Video Demo: <>
+#### Video Demo: <https://youtu.be/ioBLOyjrfZw>
 #### Description:
 Welcome to Cinematron 2.0, an improvement from my [CS50 Final Project](https://youtu.be/dw-6M4zBNpw).
 There's not much change in the Controler (application.py and helpers.py). The goal of my re-doing this project was to improve the front-end. Now the site is fancy, responsive, and accessible.
