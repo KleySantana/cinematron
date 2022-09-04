@@ -43,7 +43,7 @@ The background is a reference to the movie Tron
 - Clone or download this repository and open in a code editor
 - Register at [IMDB](https://imdb-api.com/api) to receive an API key
 - Export the key to the environment
-- Make sure you have all the extensions and libraries installed
+- Make sure you have all the extensions and libraries installed: ```pip install -r /path/to/requirements.txt```
 - - You might need to manually install libgravatar: ```pip install libgravatar```
 - Some code editors use app.py instead of application.py as Controller. If it happens to you, just rename the file.
 - ```flask run```, and have fun!
