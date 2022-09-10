@@ -7,8 +7,6 @@
 Welcome to Cinematron 2.0, an improvement from my [CS50 Final Project](https://youtu.be/dw-6M4zBNpw).
 There's not much change in the Controller (application.py and helpers.py). The goal of my re-doing this project was to improve the front end. Now the site is fancy, responsive, and accessible.
 
-[This link](https://github.com/KleySantana/cinematron/commit/ea11bc3227335f7ffcf5be9d42767f0bebd906d6) will show you a comparison between the source code from the original project and this version.
-
 Languages:
 - HTML
 - CSS
