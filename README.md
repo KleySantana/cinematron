@@ -38,12 +38,11 @@ Have you heard about [Gravatar](https://en.gravatar.com/)? Global Avatar (get it
 
 The background is a reference to the movie Tron
 
-## How to run
+## How to run ([VS Code](https://code.visualstudio.com/))
 
 - Clone or download this repository and open it in a code editor
 - Register at [IMDB](https://imdb-api.com/api) to receive an API key
-- Export the key to the environment
-- Make sure you have all the libraries installed: ```pip install -r /path/to/requirements.txt```
-- - You might need to manually install libgravatar: ```pip install libgravatar```
-- Some code editors use app.py instead of application.py as Controller. If it happens to you, just rename the file.
+- Create a [dotenv file](https://pypi.org/project/python-dotenv/) and save key in it: ```API_KEY=your_key_here```
+- Create a [virtual environment](https://code.visualstudio.com/docs/python/tutorial-flask)
+- Install all libraries: ```pip install -r /path/to/requirements.txt```
 - ```flask run```, and have fun!
