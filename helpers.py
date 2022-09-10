@@ -1,9 +1,13 @@
 import os
 import requests
 
+from cs50 import SQL
 from libgravatar import Gravatar
 from flask import redirect, render_template, session
 from functools import wraps
+
+
+db = SQL("sqlite:///movies.db")
 
 
 def apology(message, code=400):
@@ -33,6 +37,16 @@ def login_required(f):
             return redirect("/login")
         return f(*args, **kwargs)
     return decorated_function
+
+def user_favorites():
+    
+    favorites = db.execute("SELECT imdb_id FROM favorites WHERE user_id = ?", session["user_id"])
+    check = []
+
+    for i in range(len(favorites)):
+        check.append(favorites[i]["imdb_id"])
+    return check
+
 
 def top_ten_movies():
     api_key = os.environ.get("API_KEY")
