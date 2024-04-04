@@ -39,7 +39,7 @@ The background is a reference to the movie Tron
 ## How to run ([VS Code](https://code.visualstudio.com/))
 
 - Clone or download this repository and open it in a code editor
-- Register at [IMDB](https://imdb-api.com/api) to receive an API key
+- Register at [IMDB](https://imdb-api.com/api) to receive an API key (Note: unfortunately, IMDB dropped the free tier of their API)
 - Create a [dotenv file](https://pypi.org/project/python-dotenv/) and save key in it: ```API_KEY=your_key_here```
 - Create a [virtual environment](https://code.visualstudio.com/docs/python/tutorial-flask)
 - Install all libraries: ```pip install -r /path/to/requirements.txt```
